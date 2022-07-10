@@ -19,16 +19,9 @@ class BlacketUPI:
         self.upi_handles = kwargs.get("upi_handles")
         self.api_url = "https://upibankvalidator.com/api/upiValidation"
         self.threads = 15
-        self.req_count = 0
         self.rate_limit_count = 0
         self.rate_limit_reqs_break = 15
         self.rate_limit_sleep_secs = 30
-
-    def handle_rate_limit(self):
-        if self.req_count >= self.threads + 1:
-            cprint(f"[\U0001F4A4] Request Limit Exceeded, Sleeping For {self.rate_limit_sleep_secs} Seconds", "yellow")
-            time.sleep(self.rate_limit_sleep_secs)
-            self.req_count = 0
 
     def fetch_upi_details(self, handles_list):
         for handle in handles_list:
@@ -77,12 +70,13 @@ class BlacketUPI:
             
             for t in threads:
                 if t.exception():
+                    print("\n")
                     cprint("="*100, "red")
                     cprint(f"[\U00002620] Something Went Wrong!!!, Error: {t.exception()}", "red")
                     cprint("="*100, "red")
 
 if __name__ == "__main__":
-    cprint(figlet_format("Blacket UPI OSINT", font="epic"), "white", attrs=["bold"])
+    cprint(figlet_format("Blacket-UPI-OSINT", font="epic"), "white", attrs=["bold"])
     cprint("[\U0001F30E] Blacklet UPI OSINT Tool can find the details about an UPI ID", "white")
     cprint("[\U0001F4DD] Created By - Xan0er\n", "white")
 
@@ -101,7 +95,7 @@ if __name__ == "__main__":
 
     upi_id = args_obj.uid
 
-    if len(sys.argv) == 1:
+    if (len(sys.argv) == 1) or (upi_id is None):
         parser.print_help()
         parser.exit()
 
