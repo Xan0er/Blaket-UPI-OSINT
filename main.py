@@ -43,11 +43,11 @@ class BlacketUPI:
 
                 except Exception as error:
                     cprint(f"[\U00002620] Something Went Wrong!!!, Error: {error}", "red")
-                    sys.exit()
+                    os.kill(os.getpid(), 9)
 
             if resp_status_code == 400:
                 cprint("[\U0000274C] Invalid UPI ID: " + upi_string, "red")
-                sys.exit()
+                os.kill(os.getpid(), 9)
 
             if resp_status_code == 200:
                 resp_obj = req.json()
@@ -99,7 +99,7 @@ if __name__ == "__main__":
         parser.print_help()
         parser.exit()
 
-    upi_handles = ["apl", "yapl", "abfspay", "fbl", "axisb", "idfcbank", "rmhdfcbank", "icici", "okaxis", "okhdfcbank",
+    upi_handles = ["apl", "yapl", "abfspay", "fbl", "axisb", "idfcbank", "rmhdfcbank", "icici", "okaxis", "okhdfcbank", "paytm",
                    "okicici", "oksbi", "axisbank", "jupiteraxis", "hdfcbankjd", "indus", "hsbc", "myicici", "ikwik", "ybl", "ibl",
                    "axl", "pingpay", "kmbl", "tapicici", "timecosmos", "yesbank", "waicici", "waaxis", "wahdfcbank", "wasbi"]
 

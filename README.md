@@ -4,3 +4,4 @@
 
 ### To Do List
     - Complete Output File Function
+    - Add Proxies To Avoid Rate Limit
